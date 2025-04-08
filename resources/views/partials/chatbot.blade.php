@@ -177,29 +177,72 @@
             border-radius: 4px;
             margin: 0 10px 0;
         }
-        .chatbot .outgoing{
-            margin: 20px 0;
-            justify-content: flex-end;
-        }
+        .chatbot .outgoing {
+    margin: 20px 0;
+    justify-content: flex-end;
+    position: relative;
+    
+}
+
+.chatbot .outgoing p {
+    font-weight: bold;
+    position: relative;
+    color: #fff;
+    max-width: 75%;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    padding: 12px 16px;
+    background: #4CC9FE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Triangle tail on the right */
+.chatbot .outgoing p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #4CC9FE;
+    
+}
         .chatbot .chat p {
-            color: #fff;
             max-width: 75%;
             font-size: 0.95rem;
             white-space: pre-wrap;
             padding: 12px 16px;
-            border-radius: 10px 10px 0 10px;
-            background: #4CC9FE;
+            border-radius: 10px 0 10px 10px;
+            background: linear-gradient(to right, #4CC9FE, #12D8FA,  #4CC9FE, #12D8FA);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .chatbot .chat p.error {
         color: #721c24;
             background: #f8d7da;
         }
-        .chatbot .incoming p{
-            color: #000;
-            background: #f2f2f2;
-            border-radius: 10px 10px 10px 0;
-            width: 360px;
-        }
+        .chatbot .incoming p {
+            color: white;
+    margin-top: 10px;
+    position: relative;
+    color: #000;
+    background:rgb(255, 255, 255);
+    border: 1px solid black;
+    border-radius: 0 10px 10px 10px;
+    width: 360px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.chatbot .incoming p::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid rgb(0, 0, 0);
+}
         .chatbot .chat-input{
             position: absolute;
             bottom: 0;
@@ -234,32 +277,32 @@
         .chat-input textarea:valid ~ span{
             visibility: visible;
         }
-        .dialog-options {
-            display: flex;
-            gap: 10px;
-            padding: 10px;
-            background: #fff;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-            flex-wrap: wrap;
-            justify-content: center;
-            position: absolute; 
-            bottom: 60px; 
-            left: 0;
-            width: 100%;
-            z-index: 99;
-        }
-        .dialog-options button {
-            background: #e0e0e0;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            cursor: pointer;
-            z-index:99;
-        }
-        .dialog-options button:hover {
-            background: #ccc;
-        }
+        .chat .dialog-options {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+
+}
+
+.chat .dialog-options button {
+    color: black;
+    background: linear-gradient(to right, #4CC9FE, #12D8FA,  #4CC9FE, #12D8FA);
+    border-radius: 25px;
+    padding: 8px 12px;
+    cursor: pointer;
+
+}
+
+.chat .dialog-options button:hover {
+    background: rgb(118, 191, 223);
+}
         .chat-icon{
             min-width: 40px; 
             display: flex;
@@ -270,7 +313,7 @@
             border-radius: 50%;
             width: 30px;
             height: 30px; 
-            margin-left: -2px;
+            margin-left: -10px;
             object-fit: contain;
         }
         .header-icon-wrapper {
@@ -339,6 +382,7 @@
             left: 0;
             width: 100%;
             overflow: hidden;
+            z-index: 999;
         }
         .custom-shape-divider-bottom-1743647769 svg {
             position: relative;
@@ -346,18 +390,20 @@
             width: calc(179% + 1.3px);
             height: 30px;
             transform: rotateY(180deg);
+            z-index: 999;
         }
         .custom-shape-divider-bottom-1743647769 .shape-fill {
             fill: #4CC9FE ; 
+            z-index: 999;
         }
         .green-dot {
         display: inline-block;
-        : 10px;
+        width: 10px;
         height: 10px;
-        background-color: green;
+        background-color:rgb(0, 255, 64);
         border-radius: 50%;
-        margin-right: 315px;
-        margin-top: 10px;
+        margin-right: 337px;
+        margin-top: 25px;
         vertical-align: middle;
         }
         #send-btn {
@@ -399,9 +445,10 @@
                 </svg>
             </div>
             <ul div class="chatbox">        
+          
         </ul>
-
         <div class="dialog-options"></div>
+      
         <div class="chat-input">
             <textarea placeholder="Enter a message..." required></textarea>
             <span id="send-btn" class="material-symbols-outlined">send</span>
@@ -428,141 +475,157 @@ chatLi.querySelector("p").textContent = message;
 return chatLi;
 }
 const dialogFlow = {
-start: {
-    message: "Hi there! I'm here to support your mental well-being. How can I assist you today?",
-    options: [
-        { label: "Talk about feelings", next: "feelings" },
-        { label: "Learn coping strategies", next: "coping" },
-        { label: "Connect with a professional", next: "professional" }
-    ]
-},
-feelings: {
-    message: "I'm here to listen. Can you share how you're feeling?",
-    options: [
-        { label: "I'm feeling anxious", next: "anxiety" },
-        { label: "I'm feeling down", next: "low_mood" },
-        { label: "Go back", next: "start" }
-    ]
-},
-anxiety: {
-    message: "I'm sorry to hear you're feeling anxious. Here are some strategies that might help:",
-    options: [
-        { label: "Breathing exercises", next: "breathing" },
-        { label: "Talk to someone", next: "professional" },
-        { label: "Go back", next: "feelings" }
-    ]
-},
-low_mood: {
-    message: "I'm sorry to hear you're feeling down. Here are some options that might help:",
-    options: [
-        { label: "Positive affirmations", next: "affirmations" },
-        { label: "Connect with a professional", next: "professional" },
-        { label: "Go back", next: "feelings" }
-    ]
-},
-breathing: {
-    message: "Breathing exercises can help calm your mind. Try inhaling for 4 seconds, holding for 7 seconds, and exhaling for 8 seconds.",
-    options: [
-        { label: "More help", next: "anxiety" },
-        { label: "End chat", next: null }
-    ]
-},
-affirmations: {
-    message: "Here are some affirmations to try: 'I am strong and capable', 'This feeling will pass', 'I am worthy of love and happiness'.",
-    options: [
-        { label: "More help", next: "low_mood" },
-        { label: "End chat", next: null }
-    ]
-},
-coping: {
-    message: "Coping strategies can help manage stress and emotions. Which would you like to explore?",
-    options: [
-        { label: "Mindfulness", next: "mindfulness" },
-        { label: "Physical activity", next: "physical_activity" },
-        { label: "Go back", next: "start" }
-    ]
-},
-mindfulness: {
-    message: "Mindfulness involves being present in the moment. Try a simple activity like focusing on your breath or noticing sensations around you.",
-    options: [
-        { label: "More coping strategies", next: "coping" },
-        { label: "End chat", next: null }
-    ]
-},
-physical_activity: {
-    message: "Physical activity can help release stress. Even a short walk or stretching can make a difference.",
-    options: [
-        { label: "More coping strategies", next: "coping" },
-        { label: "End chat", next: null }
-    ]
-},
-professional: {
-    message: "Connecting you to a mental health professional... Please wait.",
-    options: [
-        { label: "Go back", next: "start" },
-        { label: "End chat", next: null }
-    ]
-}
+    start: {
+        message: "Hi there! I'm here to support your mental well-being. How can I assist you today?",
+        options: [
+            { label: "Talk about feelings", next: "feelings" },
+            { label: "Learn coping strategies", next: "coping" },
+            { label: "Connect with a professional", next: "professional" }
+        ]
+    },
+    feelings: {
+        message: "I'm here to listen. Can you share how you're feeling?",
+        options: [
+            { label: "I'm feeling anxious", next: "anxiety" },
+            { label: "I'm feeling down", next: "low_mood" }
+        ]
+    },
+    anxiety: {
+        message: "I'm sorry to hear you're feeling anxious. Here are some strategies that might help:",
+        options: [
+            { label: "Breathing exercises", next: "breathing" },
+            { label: "Talk to someone", next: "professional" }
+        ]
+    },
+    low_mood: {
+        message: "I'm sorry to hear you're feeling down. Here are some options that might help:",
+        options: [
+            { label: "Positive affirmations", next: "affirmations" },
+            { label: "Connect with a professional", next: "professional" }
+        ]
+    },
+    breathing: {
+        message: "Breathing exercises can help calm your mind. Try inhaling for 4 seconds, holding for 7 seconds, and exhaling for 8 seconds.",
+        options: [
+            { label: "More help", next: "anxiety" },
+            { label: "End chat", next: null }
+        ]
+    },
+    affirmations: {
+        message: "Here are some affirmations to try: 'I am strong and capable', 'This feeling will pass', 'I am worthy of love and happiness'.",
+        options: [
+            { label: "More help", next: "low_mood" },
+            { label: "End chat", next: null }
+        ]
+    },
+    coping: {
+        message: "Coping strategies can help manage stress and emotions. Which would you like to explore?",
+        options: [
+            { label: "Mindfulness", next: "mindfulness" },
+            { label: "Physical activity", next: "physical_activity" }
+        ]
+    },
+    mindfulness: {
+        message: "Mindfulness involves being present in the moment. Try a simple activity like focusing on your breath or noticing sensations around you.",
+        options: [
+            { label: "More coping strategies", next: "coping" },
+            { label: "End chat", next: null }
+        ]
+    },
+    physical_activity: {
+        message: "Physical activity can help release stress. Even a short walk or stretching can make a difference.",
+        options: [
+            { label: "More coping strategies", next: "coping" },
+            { label: "End chat", next: null }
+        ]
+    },
+    professional: {
+        message: "Connecting you to a mental health professional... Please wait.",
+        options: [
+            { label: "End chat", next: null }
+        ]
+    }
 };
 
 const loadDialog = (step) => {
-const currentStep = dialogFlow[step];
+    const currentStep = dialogFlow[step];
 
-chatbox.innerHTML += `
-    <div class="chat incoming thinking">
-        <div class="chat-icon">
-           <img src="{{ asset('images/DOST.png') }}" alt="Chat Icon" class="chat-icon-img">
-        </div>
-        <div class="chat-text">
-            <p>Thinking...</p>
-        </div>
-    </div>`;
-
-chatbox.scrollTo(0, chatbox.scrollHeight);
-
-setTimeout(() => {
-    document.querySelector('.thinking')?.remove();
-
-    if (!currentStep) {
-        chatbox.innerHTML += `
-            <div class="chat incoming">
-                <div class="chat-icon">
-                  <img src="{{ asset('images/DOST.png') }}" alt="Chat Icon" class="chat-icon-img">
-                </div>
-                <div class="chat-text">
-                    <p>Thank you for chatting with us!</p>
-                </div>
-            </div>`;
-        dialogOptions.innerHTML = '';
-        return;
-    }
-
+    // Add thinking message
     chatbox.innerHTML += `
-        <div class="chat incoming">
+        <div class="chat incoming thinking">
             <div class="chat-icon">
                 <img src="{{ asset('images/DOST.png') }}" alt="Chat Icon" class="chat-icon-img">
             </div>
             <div class="chat-text">
-                <p>${currentStep.message}</p>
+                <p>Thinking...</p>
             </div>
         </div>`;
 
     chatbox.scrollTo(0, chatbox.scrollHeight);
 
-    dialogOptions.innerHTML = '';
-    currentStep.options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option.label;
-        button.onclick = () => handleOptionClick(option.label, option.next);
-        dialogOptions.appendChild(button);
-    });
-}, 1000);
+    setTimeout(() => {
+        // Remove thinking message
+        document.querySelector('.thinking')?.remove();
+
+        // If no step exists, show thank you message
+        if (!currentStep) {
+            chatbox.innerHTML += `
+                <div class="chat incoming">
+                    <div class="chat-icon">
+                        <img src="{{ asset('images/DOST.png') }}" alt="Chat Icon" class="chat-icon-img">
+                    </div>
+                    <div class="chat-text">
+                        <p>Thank you for chatting with us!</p>
+                    </div>
+                </div>`;
+            dialogOptions.innerHTML = '';
+            return;
+        }
+
+        // Add the message for the current step
+        chatbox.innerHTML += `
+    <div class="chat incoming previous-dialog" data-step="${step}">
+        <div class="chat-icon">
+            <img src="{{ asset('images/DOST.png') }}" alt="Chat Icon" class="chat-icon-img">
+        </div>
+        <div class="chat-text">
+            <p>${currentStep.message}</p>
+        </div>
+    </div>`;
+
+        // Add the dialog options for this step
+        const optionsContainer = document.createElement('div');
+optionsContainer.classList.add('chat', 'incoming');
+
+const optionsText = document.createElement('div');
+optionsText.classList.add('chat-text', 'dialog-options');
+
+currentStep.options.forEach(option => {
+    const button = document.createElement('button');
+    button.textContent = option.label;
+    button.addEventListener('click', () => handleOptionClick(option.label, option.next));
+    optionsText.appendChild(button);
+});
+
+optionsContainer.appendChild(optionsText);
+chatbox.appendChild(optionsContainer);
+
+
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }, 1000);
 };
 
 const handleOptionClick = (label, next) => {
-chatbox.innerHTML += `<div class="chat outgoing"><p>${label}</p></div>`;
-chatbox.scrollTo(0, chatbox.scrollHeight);
-loadDialog(next);
+    // Add the selected option to the chatbox
+    chatbox.innerHTML += `
+        <div class="chat outgoing">
+            <p>${label}</p>
+        </div>`;
+
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+
+    // Load the next dialog step
+    loadDialog(next);
 };
 
 
@@ -599,6 +662,14 @@ setTimeout(() => {
     generateResponse(incomingChatLi);
 }, 600);
 }
+
+chatbox.addEventListener('click', (e) => {
+    const target = e.target.closest('.previous-dialog');
+    if (target && target.dataset.step) {
+        const step = target.dataset.step;
+        loadDialog(step);
+    }
+});
 
 
 chatInput.addEventListener("input", () => {
