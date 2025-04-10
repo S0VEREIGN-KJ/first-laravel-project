@@ -178,7 +178,7 @@
             margin: 0 10px 0;
         }
         .chatbot .outgoing {
-    margin: 20px 0;
+    margin: 30px 0;
     justify-content: flex-end;
     position: relative;
     
@@ -192,7 +192,6 @@
     max-width: 75%;
     font-size: 0.95rem;
     white-space: pre-wrap;
-
     background: #4CC9FE;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
